@@ -1,8 +1,25 @@
 [package]
-name = "tower-default-headers-rs"
+name = "tower-default-headers"
 version = "0.1.0"
+authors = ["Ron Waldon <jokeyrhyme@jokeyrhy.me>"]
 edition = "2021"
+description = "tower-compatible middleware to set default HTTP response headers"
+readme = "README.md"
+homepage = "https://gitlab.com/jokeyrhyme/tower-default-headers-rs"
+repository = "https://gitlab.com/jokeyrhyme/tower-default-headers-rs.git"
+license = "MIT"
+keywords = ["tower", "http", "headers", "default", "layer", "middleware", "service"]
+categories = ["web-programming", "web-programming::http-server"]
+include = ["src/**/*", "Cargo.toml", "LICENSE", "README.md"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+maintenance = { status = "actively-developed" }
 
 [dependencies]
+
+[dev-dependencies]
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+
