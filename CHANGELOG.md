@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2021-11-25
+
 ### Fixed
 
 - crates.io requires a maximum of 5 keywords for crate
