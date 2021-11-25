@@ -1,4 +1,38 @@
 #![deny(clippy::all)]
+#![warn(missing_docs)]
+
+//! When building an HTTP service,
+//! you may find that many/all of your endpoints are required to return the same set of HTTP
+//! headers,
+//! so may find this crate is a convenient way to centralise these common headers into a
+//! middleware.
+//!
+//! This middleware will apply these default headers to any outgoing response that does not already
+//! have headers with the same name(s).
+//!
+//! Example
+//! ```
+//! use axum::{
+//!     body::Body,
+//!     http::header::{HeaderMap, HeaderValue, X_FRAME_OPTIONS},
+//!     routing::{get, Router},
+//! };
+//! use tower_default_headers::DefaultHeadersLayer;
+//!
+//! # async fn create_and_bind_server() {
+//! let mut default_headers = HeaderMap::new();
+//! default_headers.insert(X_FRAME_OPTIONS, HeaderValue::from_static("deny"));
+//!
+//! let app = Router::new()
+//!     .route("/", get(|| async { "hello, world!" }))
+//!     .layer(DefaultHeadersLayer::new(default_headers));
+//!
+//! axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
+//!     .serve(app.into_make_service())
+//!     .await
+//!     .unwrap();
+//! # }
+//! ```
 
 use std::{
     future::Future,
@@ -12,6 +46,7 @@ use pin_project::pin_project;
 use tower_layer::Layer;
 use tower_service::Service;
 
+#[doc(hidden)]
 #[pin_project]
 pub struct ResponseFuture<F> {
     #[pin]
@@ -40,6 +75,7 @@ where
     }
 }
 
+#[doc(hidden)]
 #[derive(Clone)]
 pub struct DefaultHeaders<S> {
     default_headers: HeaderMap,
@@ -67,11 +103,24 @@ where
     }
 }
 
+/// middleware to set default HTTP response headers
 #[derive(Clone)]
 pub struct DefaultHeadersLayer {
     default_headers: HeaderMap,
 }
 impl DefaultHeadersLayer {
+    /// Example
+    /// ```
+    /// use http::header::{HeaderMap, HeaderValue, X_FRAME_OPTIONS};
+    /// use tower_default_headers::DefaultHeadersLayer;
+    ///
+    /// # fn main() {
+    /// let mut default_headers = HeaderMap::new();
+    /// default_headers.insert(X_FRAME_OPTIONS, HeaderValue::from_static("deny"));
+    ///
+    /// let layer = DefaultHeadersLayer::new(default_headers);
+    /// # }
+    /// ```
     pub fn new(default_headers: HeaderMap) -> Self {
         Self { default_headers }
     }

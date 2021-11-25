@@ -19,6 +19,7 @@ test:
     - cargo fmt -- --check
     - cargo clippy --all-features --all-targets --workspace
     - RUST_BACKTRACE=1 cargo test --all-features --all-targets --workspace
+    - RUST_BACKTRACE=1 cargo test --doc --workspace
     - cargo build --all-features --all-targets --workspace
 
 deploy:
