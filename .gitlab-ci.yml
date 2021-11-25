@@ -13,6 +13,8 @@ test:
   stage: test
   image: rust:alpine
   before_script:
+    - apk update
+    - apk add musl-dev
     - rustup component add rustfmt
     - rustup component add clippy
   script:
