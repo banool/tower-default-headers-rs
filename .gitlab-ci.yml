@@ -4,9 +4,33 @@
 # Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+
 stages:
-- test
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: rust:alpine
+  before_script:
+    - rustup component add rustfmt
+    - rustup component add clippy
+  script:
+    - cargo fmt -- --check
+    - cargo clippy --all-features --all-targets --workspace
+    - RUST_BACKTRACE=1 cargo test --all-features --all-targets --workspace
+    - cargo build --all-features --all-targets --workspace
+
+deploy:
+  stage: deploy
+  only:
+    - tags
+  image: rust:latest
+  script:
+    - cargo publish --token $CARGO_REGISTRY_TOKEN
+
 sast:
   stage: test
+
 include:
 - template: Security/SAST.gitlab-ci.yml
