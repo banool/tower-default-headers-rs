@@ -8,7 +8,7 @@ readme = "README.md"
 homepage = "https://gitlab.com/jokeyrhyme/tower-default-headers-rs"
 repository = "https://gitlab.com/jokeyrhyme/tower-default-headers-rs.git"
 license = "MIT"
-keywords = ["tower", "http", "headers", "default", "layer", "middleware", "service"]
+keywords = ["tower", "http", "headers", "layer", "middleware"]
 categories = ["web-programming", "web-programming::http-server"]
 include = ["src/**/*", "Cargo.toml", "LICENSE", "README.md"]
 
