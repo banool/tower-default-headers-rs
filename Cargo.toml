@@ -16,8 +16,17 @@ include = ["src/**/*", "Cargo.toml", "LICENSE", "README.md"]
 maintenance = { status = "actively-developed" }
 
 [dependencies]
+futures-util = "0.3"
+http = "0.2"
+pin-project = "1"
+tower-layer = "0.3"
+tower-service = "0.3"
 
 [dev-dependencies]
+axum = "0.3"
+hyper = "0.14"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+tower = { version = "0.4", features = ["util"] }
 
 [profile.release]
 codegen-units = 1
