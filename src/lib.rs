@@ -1,4 +1,4 @@
-#![deny(clippy::all)]
+#![deny(clippy::all, unsafe_code)]
 #![warn(missing_docs)]
 
 //! When building an HTTP service,
