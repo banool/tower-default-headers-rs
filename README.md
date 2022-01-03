@@ -6,4 +6,6 @@ tower-compatible middleware to set default HTTP response headers
 
 - tower: [source code](https://github.com/tower-rs/tower) [crate](https://crates.io/crates/tower)
 
+- tokio blog post: [Inventing the `Service` trait](https://tokio.rs/blog/2021-05-14-inventing-the-service-trait)
+
 - owasp-headers-rs: [source code](https://gitlab.com/jokeyrhyme/owasp-headers-rs) [crate](https://crates.io/crates/owasp-headers)
