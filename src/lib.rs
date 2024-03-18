@@ -27,8 +27,8 @@
 //!     .route("/", get(|| async { "hello, world!" }))
 //!     .layer(DefaultHeadersLayer::new(default_headers));
 //!
-//! axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
-//!     .serve(app.into_make_service())
+//! let listener = tokio::net::TcpListener::bind(("0.0.0.0", 3000)).await.unwrap();
+//! axum::serve(listener, app.into_make_service())
 //!     .await
 //!     .unwrap();
 //! # }
@@ -43,8 +43,7 @@ use std::{
 use futures_util::ready;
 use http::{header::HeaderMap, Request, Response};
 use pin_project::pin_project;
-use tower_layer::Layer;
-use tower_service::Service;
+use tower::{Layer, Service};
 
 #[doc(hidden)]
 #[pin_project]
@@ -170,7 +169,9 @@ mod tests {
         let headers = response.headers();
         assert_eq!(headers["x-frame-options"], "deny");
 
-        let body = hyper::body::to_bytes(response.into_body()).await.unwrap();
+        let body = axum::body::to_bytes(response.into_body(), usize::MAX)
+            .await
+            .unwrap();
         assert_eq!(&body[..], b"hello, world!");
     }
 
@@ -200,7 +201,9 @@ mod tests {
         let headers = response.headers();
         assert_eq!(headers["x-frame-options"], "sameorigin");
 
-        let body = hyper::body::to_bytes(response.into_body()).await.unwrap();
+        let body = axum::body::to_bytes(response.into_body(), usize::MAX)
+            .await
+            .unwrap();
         assert_eq!(&body[..], b"hello, world!");
     }
 }

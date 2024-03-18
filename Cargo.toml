@@ -1,6 +1,6 @@
 [package]
 name = "tower-default-headers"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Ron Waldon <jokeyrhyme@jokeyrhy.me>"]
 edition = "2021"
 description = "tower-compatible middleware to set default HTTP response headers"
@@ -17,14 +17,13 @@ maintenance = { status = "actively-developed" }
 
 [dependencies]
 futures-util = "0.3"
-http = "0.2"
+http = "1.1.0"
 pin-project = "1"
-tower-layer = "0.3"
-tower-service = "0.3"
+tower = "0.4"
 
 [dev-dependencies]
-axum = "0.3"
-hyper = "0.14"
+axum = "0.7"
+hyper = "1.2.0"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 tower = { version = "0.4", features = ["util"] }
 
