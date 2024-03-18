@@ -13,4 +13,4 @@ Forked from: https://gitlab.com/jokeyrhyme/tower-default-headers-rs. Updated to 
 
 - tokio blog post: [Inventing the `Service` trait](https://tokio.rs/blog/2021-05-14-inventing-the-service-trait)
 
-- owasp-headers-rs: [source code](https://gitlab.com/jokeyrhyme/owasp-headers-rs) [crate](https://crates.io/crates/owasp-headers)
+- owasp-headers-rs: https://github.com/banool/owasp-headers-rs
